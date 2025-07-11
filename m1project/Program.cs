@@ -1,4 +1,5 @@
 using m1project.Data;
+using m1project.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,15 @@ namespace m1project
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
+
+            // Create a service scope because DbContext require this scope to be resolved and disposed properly.
+            // In normal app behavior, the framework automatically creates a scope per Http request.
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                SeedData.Initialize(services);
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
