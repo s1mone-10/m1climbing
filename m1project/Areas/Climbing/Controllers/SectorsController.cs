@@ -37,6 +37,7 @@ namespace m1project.Areas.Climbing.Controllers
 
             var sector = await _context.Sector
                 .Include(s => s.Crag)
+                .Include(s => s.Routes)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sector == null)
             {

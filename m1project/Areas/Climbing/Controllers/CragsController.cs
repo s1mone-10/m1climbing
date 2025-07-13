@@ -36,6 +36,7 @@ namespace m1project.Areas.Climbing.Controllers
             }
 
             var crag = await _context.Crag
+                .Include(c => c.Sectors)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (crag == null)
             {

@@ -1,5 +1,7 @@
 html {
   font-size: 14px;
+  background: #23272e; /* Rider-like dark background */
+  color: #d8dee9;      /* Light text for contrast */
 }
 
 @media (min-width: 768px) {
@@ -9,7 +11,7 @@ html {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  box-shadow: 0 0 0 0.1rem #23272e, 0 0 0 0.25rem #ffcc00; /* Rider accent color */
 }
 
 html {
@@ -19,4 +21,78 @@ html {
 
 body {
   margin-bottom: 60px;
+  background: #23272e; /* Ensure body background is dark */
+  color: #d8dee9;
+  font-family: 'JetBrains Mono', 'Fira Mono', 'Consolas', monospace; /* Rider-like font */
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: #ffcc00; /* Rider accent yellow */
+  font-family: 'JetBrains Mono', 'Fira Mono', 'Consolas', monospace;
+}
+
+/* Links */
+a {
+  color: #82aaff; /* Rider blue */
+  text-decoration: none;
+}
+a:hover {
+  color: #ffcc00;
+  text-decoration: underline;
+}
+
+/* Buttons */
+.btn, button {
+  background: #393e4f;
+  color: #d8dee9;
+  border: 1px solid #393e4f;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', 'Fira Mono', 'Consolas', monospace;
+  transition: background 0.2s, color 0.2s;
+}
+.btn:hover, button:hover {
+  background: #2c313a;
+  color: #ffcc00;
+  border-color: #ffcc00;
+}
+
+/* Inputs */
+input, textarea, select {
+  background: #2c313a;
+  color: #d8dee9;
+  border: 1px solid #393e4f;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', 'Fira Mono', 'Consolas', monospace;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: #ffcc00;
+  outline: none;
+  box-shadow: 0 0 0 0.2rem #ffcc0055;
+}
+
+/* Tables */
+table {
+  background: #23272e;
+  color: #d8dee9;
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px solid #393e4f;
+  padding: 8px;
+  color: #d8dee9; /* Force table cell text to white */
+}
+th {
+  background: #393e4f;
+  color: #ffcc00;
+}
+
+/* Scrollbar styling for dark mode */
+::-webkit-scrollbar {
+  width: 10px;
+  background: #23272e;
+}
+::-webkit-scrollbar-thumb {
+  background: #393e4f;
+  border-radius: 5px;
 }
