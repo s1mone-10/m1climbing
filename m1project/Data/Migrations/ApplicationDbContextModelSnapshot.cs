@@ -243,6 +243,9 @@ namespace m1project.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Crag");
                 });
 
@@ -253,6 +256,9 @@ namespace m1project.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CragId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Grade")
                         .IsRequired()
@@ -269,7 +275,12 @@ namespace m1project.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CragId");
+
                     b.HasIndex("SectorId");
+
+                    b.HasIndex("Name", "CragId")
+                        .IsUnique();
 
                     b.ToTable("Route");
                 });
@@ -293,6 +304,9 @@ namespace m1project.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CragId");
+
+                    b.HasIndex("Name", "CragId")
+                        .IsUnique();
 
                     b.ToTable("Sector");
                 });
@@ -350,11 +364,19 @@ namespace m1project.Data.Migrations
 
             modelBuilder.Entity("m1project.Areas.Climbing.Models.Route", b =>
                 {
+                    b.HasOne("m1project.Areas.Climbing.Models.Crag", "Crag")
+                        .WithMany()
+                        .HasForeignKey("CragId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("m1project.Areas.Climbing.Models.Sector", "Sector")
                         .WithMany("Routes")
                         .HasForeignKey("SectorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Crag");
 
                     b.Navigation("Sector");
                 });

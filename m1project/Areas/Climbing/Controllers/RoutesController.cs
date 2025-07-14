@@ -50,7 +50,8 @@ namespace m1project.Areas.Climbing.Controllers
         // GET: Climbing/Routes/Create
         public IActionResult Create()
         {
-            ViewData["SectorId"] = new SelectList(_context.Sector, "Id", "Name");
+            ViewData["CragId"] = new SelectList(_context.Crag, "Id", "Name");
+            //ViewData["SectorId"] = new SelectList(_context.Sector, "Id", "Name");
             return View();
         }
 
@@ -59,7 +60,7 @@ namespace m1project.Areas.Climbing.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Grade,SectorId")] Route route)
+        public async Task<IActionResult> Create([Bind("Id,Name,Grade,CragId,SectorId")] Route route)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +68,8 @@ namespace m1project.Areas.Climbing.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SectorId"] = new SelectList(_context.Sector, "Id", "Name", route.SectorId);
+            ViewData["CragId"] = new SelectList(_context.Crag, "Id", "Name", route.CragId);
+            //ViewData["SectorId"] = new SelectList(_context.Sector, "Id", "Name", route.SectorId);
             return View(route);
         }
 
@@ -84,7 +86,7 @@ namespace m1project.Areas.Climbing.Controllers
             {
                 return NotFound();
             }
-            ViewData["SectorId"] = new SelectList(_context.Sector, "Id", "Name", route.SectorId);
+            ViewData["CragId"] = new SelectList(_context.Crag, "Id", "Name", route.SectorId);
             return View(route);
         }
 
@@ -93,7 +95,7 @@ namespace m1project.Areas.Climbing.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Grade,SectorId")] Route route)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Grade,CragId,SectorId")] Route route)
         {
             if (id != route.Id)
             {
@@ -120,7 +122,7 @@ namespace m1project.Areas.Climbing.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SectorId"] = new SelectList(_context.Sector, "Id", "Name", route.SectorId);
+            ViewData["CragId"] = new SelectList(_context.Crag, "Id", "Name", route.CragId);
             return View(route);
         }
 

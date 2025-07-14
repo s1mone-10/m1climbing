@@ -22,14 +22,14 @@ namespace m1project.Areas.Climbing.Controllers
             _context = context;
         }
 
-        // GET: api/Climbing
+        // GET: api/Climbing/Climbingapi
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Crag>>> GetCrag()
         {
             return await _context.Crag.ToListAsync();
         }
 
-        // GET: api/Climbing/5
+        // GET: api/Climbing/Climbingapi/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Crag>> GetCrag(int id)
         {
@@ -43,7 +43,7 @@ namespace m1project.Areas.Climbing.Controllers
             return crag;
         }
 
-        // PUT: api/Climbing/5
+        // PUT: api/Climbing/Climbingapi/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCrag(int id, Crag crag)
@@ -74,7 +74,7 @@ namespace m1project.Areas.Climbing.Controllers
             return NoContent();
         }
 
-        // POST: api/Climbing
+        // POST: api/Climbingapi/Climbing
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Crag>> PostCrag(Crag crag)
@@ -85,7 +85,7 @@ namespace m1project.Areas.Climbing.Controllers
             return CreatedAtAction("GetCrag", new { id = crag.Id }, crag);
         }
 
-        // DELETE: api/Climbing/5
+        // DELETE: api/Climbing/Climbingapi/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCrag(int id)
         {
@@ -100,6 +100,19 @@ namespace m1project.Areas.Climbing.Controllers
 
             return NoContent();
         }
+
+        // GET: api/Climbing/Climbingapi/GetSectors?cragId=5
+        [HttpGet("GetSectors")]
+        public async Task<ActionResult<IEnumerable<object>>> GetSectors(int cragId)
+        {
+            var sectors = await _context.Sector
+                .Where(s => s.CragId == cragId)
+                .Select(s => new { value = s.Id, text = s.Name })
+                .ToListAsync();
+
+            return Ok(sectors);
+        }
+
 
         private bool CragExists(int id)
         {

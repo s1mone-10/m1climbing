@@ -1,23 +1,29 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace m1project.Areas.Climbing.Models
 {
+    [Index(nameof(Name), nameof(CragId), IsUnique = true)]
     public class Route
     {
         public int Id { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
         [Required]
         [MaxLength(10)]
-        public string Grade { get; set; } // e.g. "6b+", "7a"
+        public required string Grade { get; set; } // e.g. "6b+", "7a"
 
         [Required]
         public int SectorId { get; set; }
 
-        public Sector Sector { get; set; }
-    }
+        public Sector? Sector { get; set; }
 
+        [Required]
+        public int CragId { get; set; }
+
+        public Crag? Crag { get; set; }
+    }
 }

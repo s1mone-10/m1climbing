@@ -24,8 +24,12 @@
                 <span asp-validation-for="Grade" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="CragId" class="control-label"></label>
+                <select asp-for="CragId" class="form-control" asp-items="ViewBag.CragId" id="CragId"></select>
+            </div>
+            <div class="form-group">
                 <label asp-for="SectorId" class="control-label"></label>
-                <select asp-for="SectorId" class="form-control" asp-items="ViewBag.SectorId"></select>
+                <select asp-for="SectorId" class="form-control" asp-items="ViewBag.SectorId" id="SectorId"></select>
                 <span asp-validation-for="SectorId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -41,4 +45,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_CragSectorScripts");}
 }

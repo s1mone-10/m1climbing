@@ -22,25 +22,25 @@ public static class SeedData
             var crag = new Crag
             {
                 Name = "Sunny Rock",
-                Region = "South Valley",
-                Sectors = new List<Sector>
+                Region = "South Valley"
+            };
+            crag.Sectors = new List<Sector>
+            {
+                new Sector
                 {
-                    new Sector
+                    Name = "Main Wall",
+                    Routes = new List<Route>
                     {
-                        Name = "Main Wall",
-                        Routes = new List<Route>
-                        {
-                            new Route { Name = "Sunshine", Grade = "6a" },
-                            new Route { Name = "Heatwave", Grade = "6b+" }
-                        }
-                    },
-                    new Sector
+                        new Route { Name = "Sunshine", Grade = "6a", Crag = crag },
+                        new Route { Name = "Heatwave", Grade = "6b+", Crag = crag }
+                    }
+                },
+                new Sector
+                {
+                    Name = "Shady Side",
+                    Routes = new List<Route>
                     {
-                        Name = "Shady Side",
-                        Routes = new List<Route>
-                        {
-                            new Route { Name = "Cool Breeze", Grade = "5c" }
-                        }
+                        new Route { Name = "Cool Breeze", Grade = "5c", Crag = crag }
                     }
                 }
             };
@@ -48,25 +48,25 @@ public static class SeedData
             var crag2 = new Crag
             {
                 Name = "Montovolo",
-                Region = "Bologna",
-                Sectors = new List<Sector>
+                Region = "Bologna"
+            };
+            crag2.Sectors = new List<Sector>
+            {
+                new Sector
                 {
-                    new Sector
+                    Name = "Centrale",
+                    Routes = new List<Route>
                     {
-                        Name = "Centrale",
-                        Routes = new List<Route>
-                        {
-                            new Route { Name = "Passenger", Grade = "7a" },
-                            new Route { Name = "WhatsApp", Grade = "6c+" }
-                        }
-                    },
-                    new Sector
+                        new Route { Name = "Passenger", Grade = "7a", Crag = crag2 },
+                        new Route { Name = "WhatsApp", Grade = "6c+", Crag = crag2 }
+                    }
+                },
+                new Sector
+                {
+                    Name = "Cavina",
+                    Routes = new List<Route>
                     {
-                        Name = "Cavina",
-                        Routes = new List<Route>
-                        {
-                            new Route { Name = "Brutta", Grade = "5c" }
-                        }
+                        new Route { Name = "Brutta", Grade = "5c", Crag = crag2 }
                     }
                 }
             };
@@ -74,25 +74,25 @@ public static class SeedData
             var crag3 = new Crag
             {
                 Name = "Granite Peak",
-                Region = "North Ridge",
-                Sectors = new List<Sector>
+                Region = "North Ridge"
+            };
+            crag3.Sectors = new List<Sector>
+            {
+                new Sector
                 {
-                    new Sector
+                    Name = "Eagle's Nest",
+                    Routes = new List<Route>
                     {
-                        Name = "Eagle's Nest",
-                        Routes = new List<Route>
-                        {
-                            new Route { Name = "Skyline", Grade = "7b" },
-                            new Route { Name = "Hawk's Flight", Grade = "6c" }
-                        }
-                    },
-                    new Sector
+                        new Route { Name = "Skyline", Grade = "7b", Crag = crag3 },
+                        new Route { Name = "Hawk's Flight", Grade = "6c", Crag = crag3 }
+                    }
+                },
+                new Sector
+                {
+                    Name = "Boulder Field",
+                    Routes = new List<Route>
                     {
-                        Name = "Boulder Field",
-                        Routes = new List<Route>
-                        {
-                            new Route { Name = "Stone Dance", Grade = "6a+" }
-                        }
+                        new Route { Name = "Stone Dance", Grade = "6a+", Crag = crag3 }
                     }
                 }
             };
@@ -100,25 +100,25 @@ public static class SeedData
             var crag4 = new Crag
             {
                 Name = "Blue Lake",
-                Region = "East Valley",
-                Sectors = new List<Sector>
+                Region = "East Valley"
+            };
+            crag4.Sectors = new List<Sector>
+            {
+                new Sector
                 {
-                    new Sector
+                    Name = "Waterfall",
+                    Routes = new List<Route>
                     {
-                        Name = "Waterfall",
-                        Routes = new List<Route>
-                        {
-                            new Route { Name = "Cascade", Grade = "6b" },
-                            new Route { Name = "Mist Trail", Grade = "6a" }
-                        }
-                    },
-                    new Sector
+                        new Route { Name = "Cascade", Grade = "6b", Crag = crag4 },
+                        new Route { Name = "Mist Trail", Grade = "6a", Crag = crag4 }
+                    }
+                },
+                new Sector
+                {
+                    Name = "Pine Forest",
+                    Routes = new List<Route>
                     {
-                        Name = "Pine Forest",
-                        Routes = new List<Route>
-                        {
-                            new Route { Name = "Needle Path", Grade = "5b" }
-                        }
+                        new Route { Name = "Needle Path", Grade = "5b", Crag = crag4 }
                     }
                 }
             };

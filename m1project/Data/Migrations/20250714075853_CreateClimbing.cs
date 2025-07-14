@@ -52,11 +52,18 @@ namespace m1project.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Grade = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    SectorId = table.Column<int>(type: "int", nullable: false)
+                    SectorId = table.Column<int>(type: "int", nullable: false),
+                    CragId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Route", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Route_Crag_CragId",
+                        column: x => x.CragId,
+                        principalTable: "Crag",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Route_Sector_SectorId",
                         column: x => x.SectorId,
@@ -64,6 +71,23 @@ namespace m1project.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Crag_Name",
+                table: "Crag",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Route_CragId",
+                table: "Route",
+                column: "CragId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Route_Name_CragId",
+                table: "Route",
+                columns: new[] { "Name", "CragId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Route_SectorId",
@@ -74,6 +98,12 @@ namespace m1project.Data.Migrations
                 name: "IX_Sector_CragId",
                 table: "Sector",
                 column: "CragId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sector_Name_CragId",
+                table: "Sector",
+                columns: new[] { "Name", "CragId" },
+                unique: true);
         }
 
         /// <inheritdoc />
