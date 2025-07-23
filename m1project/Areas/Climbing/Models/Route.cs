@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace m1project.Areas.Climbing.Models
+namespace m1climbing.Areas.Climbing.Models
 {
     [Index(nameof(Name), nameof(CragId), IsUnique = true)]
     public class Route

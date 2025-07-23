@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace m1project.Data.Migrations
+namespace m1climbing.Data.Migrations
 {
     /// <inheritdoc />
     public partial class AddRolesSupport : Migration

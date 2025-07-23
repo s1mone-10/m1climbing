@@ -1,4 +1,4 @@
-﻿namespace m1project.Constants
+﻿namespace m1climbing.Constants
 {
     public class Roles
     {

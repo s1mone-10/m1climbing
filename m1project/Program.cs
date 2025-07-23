@@ -1,11 +1,11 @@
-using m1project.Areas.Identity.Data;
-using m1project.Constants;
-using m1project.Data;
-using m1project.Models;
+using m1climbing.Areas.Identity.Data;
+using m1climbing.Constants;
+using m1climbing.Data;
+using m1climbing.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace m1project
+namespace m1climbing
 {
     public class Program
     {

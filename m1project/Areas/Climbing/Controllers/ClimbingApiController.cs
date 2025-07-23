@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using m1project.Areas.Climbing.Models;
-using m1project.Data;
+using m1climbing.Areas.Climbing.Models;
+using m1climbing.Data;
 
-namespace m1project.Areas.Climbing.Controllers
+namespace m1climbing.Areas.Climbing.Controllers
 {
     [Route("api/[area]/[controller]")]
     [Area("Climbing")]

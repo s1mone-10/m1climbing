@@ -1,13 +1,13 @@
-﻿using m1project.Areas.Climbing.Models;
-using m1project.Areas.Identity.Data;
-using m1project.Constants;
-using m1project.Data;
+﻿using m1climbing.Areas.Climbing.Models;
+using m1climbing.Areas.Identity.Data;
+using m1climbing.Constants;
+using m1climbing.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using static System.Formats.Asn1.AsnWriter;
-using Route = m1project.Areas.Climbing.Models.Route;
+using Route = m1climbing.Areas.Climbing.Models.Route;
 
-namespace m1project.Models;
+namespace m1climbing.Models;
 
 public static class SeedData
 {

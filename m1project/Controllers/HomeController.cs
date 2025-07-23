@@ -1,8 +1,8 @@
 using System.Diagnostics;
-using m1project.Models;
+using m1climbing.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace m1project.Controllers
+namespace m1climbing.Controllers
 {
     public class HomeController : Controller
     {

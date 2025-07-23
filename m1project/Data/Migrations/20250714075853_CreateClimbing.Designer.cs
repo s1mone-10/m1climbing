@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using m1project.Data;
+using m1climbing.Data;
 
 #nullable disable
 
-namespace m1project.Data.Migrations
+namespace m1climbing.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250714075853_CreateClimbing")]
@@ -227,7 +227,7 @@ namespace m1project.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("m1project.Areas.Climbing.Models.Crag", b =>
+            modelBuilder.Entity("m1climbing.Areas.Climbing.Models.Crag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -252,7 +252,7 @@ namespace m1project.Data.Migrations
                     b.ToTable("Crag");
                 });
 
-            modelBuilder.Entity("m1project.Areas.Climbing.Models.Route", b =>
+            modelBuilder.Entity("m1climbing.Areas.Climbing.Models.Route", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -288,7 +288,7 @@ namespace m1project.Data.Migrations
                     b.ToTable("Route");
                 });
 
-            modelBuilder.Entity("m1project.Areas.Climbing.Models.Sector", b =>
+            modelBuilder.Entity("m1climbing.Areas.Climbing.Models.Sector", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -365,15 +365,15 @@ namespace m1project.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("m1project.Areas.Climbing.Models.Route", b =>
+            modelBuilder.Entity("m1climbing.Areas.Climbing.Models.Route", b =>
                 {
-                    b.HasOne("m1project.Areas.Climbing.Models.Crag", "Crag")
+                    b.HasOne("m1climbing.Areas.Climbing.Models.Crag", "Crag")
                         .WithMany()
                         .HasForeignKey("CragId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("m1project.Areas.Climbing.Models.Sector", "Sector")
+                    b.HasOne("m1climbing.Areas.Climbing.Models.Sector", "Sector")
                         .WithMany("Routes")
                         .HasForeignKey("SectorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -384,9 +384,9 @@ namespace m1project.Data.Migrations
                     b.Navigation("Sector");
                 });
 
-            modelBuilder.Entity("m1project.Areas.Climbing.Models.Sector", b =>
+            modelBuilder.Entity("m1climbing.Areas.Climbing.Models.Sector", b =>
                 {
-                    b.HasOne("m1project.Areas.Climbing.Models.Crag", "Crag")
+                    b.HasOne("m1climbing.Areas.Climbing.Models.Crag", "Crag")
                         .WithMany("Sectors")
                         .HasForeignKey("CragId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -395,12 +395,12 @@ namespace m1project.Data.Migrations
                     b.Navigation("Crag");
                 });
 
-            modelBuilder.Entity("m1project.Areas.Climbing.Models.Crag", b =>
+            modelBuilder.Entity("m1climbing.Areas.Climbing.Models.Crag", b =>
                 {
                     b.Navigation("Sectors");
                 });
 
-            modelBuilder.Entity("m1project.Areas.Climbing.Models.Sector", b =>
+            modelBuilder.Entity("m1climbing.Areas.Climbing.Models.Sector", b =>
                 {
                     b.Navigation("Routes");
                 });

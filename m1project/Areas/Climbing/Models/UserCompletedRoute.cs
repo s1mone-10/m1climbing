@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using m1project.Areas.Identity.Data;
+using m1climbing.Areas.Identity.Data;
 
-namespace m1project.Areas.Climbing.Models
+namespace m1climbing.Areas.Climbing.Models
 {
     public class UserCompletedRoute
     {

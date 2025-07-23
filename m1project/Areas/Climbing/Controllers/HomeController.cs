@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace m1project.Areas.Climbing.Controllers
+namespace m1climbing.Areas.Climbing.Controllers
 {
     [Area("Climbing")]
     public class HomeController : Controller

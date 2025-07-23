@@ -10,8 +10,8 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using m1project.Areas.Identity.Data;
-using m1project.Constants;
+using m1climbing.Areas.Identity.Data;
+using m1climbing.Constants;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -21,7 +21,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
-namespace m1project.Areas.Identity.Pages.Account
+namespace m1climbing.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {

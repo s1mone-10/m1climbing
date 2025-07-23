@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using m1project.Areas.Climbing.Models;
-using m1project.Data;
-using Route = m1project.Areas.Climbing.Models.Route;
+using m1climbing.Areas.Climbing.Models;
+using m1climbing.Data;
+using Route = m1climbing.Areas.Climbing.Models.Route;
 
-namespace m1project.Areas.Climbing.Controllers
+namespace m1climbing.Areas.Climbing.Controllers
 {
     [Area("Climbing")]
     public class RoutesController : Controller

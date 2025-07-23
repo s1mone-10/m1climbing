@@ -1,8 +1,8 @@
-using m1project.Areas.Climbing.Models;
+using m1climbing.Areas.Climbing.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 
-namespace m1project.Areas.Identity.Data
+namespace m1climbing.Areas.Identity.Data
 {
     public class ApplicationUser : IdentityUser
     {

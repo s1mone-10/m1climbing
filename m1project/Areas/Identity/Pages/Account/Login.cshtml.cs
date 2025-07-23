@@ -14,9 +14,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using m1project.Areas.Identity.Data;
+using m1climbing.Areas.Identity.Data;
 
-namespace m1project.Areas.Identity.Pages.Account
+namespace m1climbing.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {

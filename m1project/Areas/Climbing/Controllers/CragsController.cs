@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using m1project.Areas.Climbing.Models;
-using m1project.Data;
+using m1climbing.Areas.Climbing.Models;
+using m1climbing.Data;
 using Microsoft.AspNetCore.Authorization;
-using m1project.Constants;
+using m1climbing.Constants;
 
-namespace m1project.Areas.Climbing.Controllers
+namespace m1climbing.Areas.Climbing.Controllers
 {
     [Area("Climbing")]
     public class CragsController : Controller

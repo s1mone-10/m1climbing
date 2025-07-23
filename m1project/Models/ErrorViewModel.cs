@@ -1,4 +1,4 @@
-namespace m1project.Models
+namespace m1climbing.Models
 {
     public class ErrorViewModel
     {
