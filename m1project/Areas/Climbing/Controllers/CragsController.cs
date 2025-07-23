@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using m1project.Areas.Climbing.Models;
 using m1project.Data;
+using Microsoft.AspNetCore.Authorization;
+using m1project.Constants;
 
 namespace m1project.Areas.Climbing.Controllers
 {
@@ -47,6 +49,7 @@ namespace m1project.Areas.Climbing.Controllers
         }
 
         // GET: Climbing/Crags/Create
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult Create()
         {
             return View();

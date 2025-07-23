@@ -1,17 +1,85 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using m1project.Areas.Climbing.Models;
+using m1project.Areas.Identity.Data;
+using m1project.Constants;
 using m1project.Data;
-using m1project.Areas.Climbing.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using static System.Formats.Asn1.AsnWriter;
 using Route = m1project.Areas.Climbing.Models.Route;
 
 namespace m1project.Models;
 
 public static class SeedData
 {
-    public static void Initialize(IServiceProvider serviceProvider)
+    public static async Task Initialize(IServiceProvider serviceProvider)
+    {
+        SeedCrags(serviceProvider);
+        
+        // TODO: I can't login with users created like this
+        //using var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+        //// Define the admin user details
+        //var adminEmail = "admin@gmail.com";
+        //var adminPassword = "Admin@123";
+
+        //// Check if the admin user already exists
+        //var userExist = await userManager.FindByEmailAsync(adminEmail);
+        //if (userExist == null)
+        //{
+        //    var adminUser = new ApplicationUser
+        //    {
+        //        UserName = "admin",
+        //        Email = adminEmail,
+        //        EmailConfirmed = true
+        //    };
+
+        //    // Create the admin user
+        //    var result = await userManager.CreateAsync(adminUser, adminPassword);
+        //    if (result.Succeeded)
+        //    {
+        //        // Assign the Admin role to the user
+        //        await userManager.AddToRoleAsync(adminUser, Roles.Admin);
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("Failed to create the admin user: " + string.Join(", ", result.Errors));
+        //    }
+        //}
+
+        //// Define the admin user details
+        //var climberEmail = "climber1@gmail.com";
+        //var climberPassword = "Climber1@123";
+
+        //// Check if the admin user already exists
+        //userExist = await userManager.FindByEmailAsync(climberEmail);
+        //if (userExist == null)
+        //{
+        //    var climberUser = new ApplicationUser
+        //    {
+        //        UserName = "climber1",
+        //        Email = climberEmail,
+        //        EmailConfirmed = true
+        //    };
+
+        //    // Create the admin user
+        //    var result = await userManager.CreateAsync(climberUser, climberPassword);
+        //    if (result.Succeeded)
+        //    {
+        //        // Assign the Admin role to the user
+        //        await userManager.AddToRoleAsync(climberUser, Roles.Climber);
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("Failed to create the climber user: " + string.Join(", ", result.Errors));
+        //    }
+        //}
+    }
+
+    private static void SeedCrags(IServiceProvider serviceProvider)
     {
         using (var context = new ApplicationDbContext(
-            serviceProvider.GetRequiredService<
-                DbContextOptions<ApplicationDbContext>>()))
+                    serviceProvider.GetRequiredService<
+                        DbContextOptions<ApplicationDbContext>>()))
         {
             // Look for any crags.
             if (context.Crag.Any())
@@ -126,5 +194,7 @@ public static class SeedData
             context.Crag.AddRange(crag, crag2, crag3, crag4);
             context.SaveChanges();
         }
+
+        return;
     }
 }

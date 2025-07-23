@@ -1,4 +1,5 @@
 using m1project.Areas.Identity.Data;
+using m1project.Constants;
 using m1project.Data;
 using m1project.Models;
 using Microsoft.AspNetCore.Identity;
@@ -19,8 +20,17 @@ namespace m1project
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>() // Add roles support
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+
+            //// Sets the fallback authorization policy.
+            //builder.Services.AddAuthorization(options =>
+            //{
+            //    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+            //        .RequireAuthenticatedUser()
+            //        .Build();
+            //});
 
             var app = builder.Build();
 
@@ -30,7 +40,18 @@ namespace m1project
             {
                 var services = scope.ServiceProvider;
 
-                SeedData.Initialize(services);
+                // Add defauilt roles
+                using var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+                string[] roles = { Roles.Admin, Roles.Climber };
+
+                foreach (var role in roles)
+                {
+                    if (!roleManager.RoleExistsAsync(role).Result)
+                        roleManager.CreateAsync(new IdentityRole(role)).Wait();
+                }
+
+                SeedData.Initialize(services).Wait();
             }
 
             // Configure the HTTP request pipeline.

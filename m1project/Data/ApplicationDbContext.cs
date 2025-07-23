@@ -1,11 +1,13 @@
-﻿using m1project.Areas.Identity.Data;
-using m1project.Areas.Climbing.Models;
+﻿using m1project.Areas.Climbing.Models;
+using m1project.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using static m1project.Areas.Identity.Data.ApplicationUser;
 
 namespace m1project.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
