@@ -1,3 +1,4 @@
+using m1project.Areas.Identity.Data;
 using m1project.Data;
 using m1project.Models;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +18,7 @@ namespace m1project
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 

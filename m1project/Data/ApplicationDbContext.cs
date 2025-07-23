@@ -1,11 +1,11 @@
-﻿using m1project.Areas.Climbing.Models;
+﻿using m1project.Areas.Identity.Data;
+using m1project.Areas.Climbing.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace m1project.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -14,6 +14,7 @@ namespace m1project.Data
         public DbSet<m1project.Areas.Climbing.Models.Crag> Crag { get; set; } = default!;
         public DbSet<m1project.Areas.Climbing.Models.Sector> Sector { get; set; } = default!;
         public DbSet<m1project.Areas.Climbing.Models.Route> Route { get; set; } = default!;
+        public DbSet<m1project.Areas.Climbing.Models.UserCompletedRoute> UserCompletedRoutes { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
