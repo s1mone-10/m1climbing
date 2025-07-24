@@ -1,0 +1,48 @@
+<script>
+    function loadSectors(cragId, selectedSectorId) {
+        var sectorSelect = document.getElementById('SectorId');
+        sectorSelect.innerHTML = '<option value="">Loading...</option>';
+        sectorSelect.disabled = true;
+
+        if (cragId) {
+            fetch('/api/Climbing/ClimbingApi/GetSectors?cragId=' + cragId)
+                .then(response => response.json())
+                .then(data => {
+                    sectorSelect.innerHTML = '';
+                    if (data.length > 0) {
+                        data.forEach(function (sector) {
+                            var option = document.createElement('option');
+                            option.value = sector.value;
+                            option.text = sector.text;
+                            if (selectedSectorId && sector.value == selectedSectorId) {
+                                option.selected = true;
+                            }
+                            sectorSelect.appendChild(option);
+                        });
+                        sectorSelect.disabled = false;
+                    } else {
+                        sectorSelect.innerHTML = '<option value="">No sectors available</option>';
+                        sectorSelect.disabled = true;
+                    }
+                });
+        } else {
+            sectorSelect.innerHTML = '<option value="">Select a crag first</option>';
+            sectorSelect.disabled = true;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var cragSelect = document.getElementById('CragId');
+        var sectorSelect = document.getElementById('SectorId');
+        if (cragSelect) {
+            cragSelect.addEventListener('change', function () {
+                loadSectors(this.value, null);
+            });
+            var selectedCragId = cragSelect.value;
+            var selectedSectorId = sectorSelect ? sectorSelect.value : null;
+            if (selectedCragId) {
+                loadSectors(selectedCragId, selectedSectorId);
+            }
+        }
+    });
+</script>
