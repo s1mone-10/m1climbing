@@ -56,7 +56,13 @@ namespace m1climbing
                         roleManager.CreateAsync(new IdentityRole(role)).Wait();
                 }
 
-                SeedData.Initialize(services).Wait();
+                if (app.Environment.IsDevelopment())
+                {
+                    var context = services.GetRequiredService<ApplicationDbContext>();
+                    context.Database.Migrate();
+
+                    SeedData.Initialize(services).Wait();
+                }
             }
 
             // Configure the HTTP request pipeline.
