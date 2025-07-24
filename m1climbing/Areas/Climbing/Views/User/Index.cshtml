@@ -1,0 +1,44 @@
+@model IEnumerable<m1climbing.Areas.Climbing.Models.UserCompletedRoute>
+@{
+    ViewData["Title"] = "My Completed Routes";
+}
+
+<h1>My Completed Routes</h1>
+<p>
+    <a asp-action="Create">Add Completed Route</a>
+</p>
+@if (!Model.Any())
+{
+    <p>You have not completed any routes yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Route</th>
+                <th>Date</th>
+                <th>Comment</th>
+                <th>Proposed Grade</th>
+                <th>Private Note</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Route?.Name</td>
+                <td>@item.Date.ToShortDateString()</td>
+                <td>@item.Comment</td>
+                <td>@item.ProposedGrade</td>
+                <td>@item.PrivateNote</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

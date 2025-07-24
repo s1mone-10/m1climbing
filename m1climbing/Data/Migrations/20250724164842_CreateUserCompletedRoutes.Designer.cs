@@ -12,8 +12,8 @@ using m1climbing.Data;
 namespace m1climbing.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250723123101_AddRolesSupport")]
-    partial class AddRolesSupport
+    [Migration("20250724164842_CreateUserCompletedRoutes")]
+    partial class CreateUserCompletedRoutes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -258,6 +258,13 @@ namespace m1climbing.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Comment")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PrivateNote")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 

@@ -258,6 +258,13 @@ namespace m1climbing.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PrivateNote")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<string>("ProposedGrade")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
