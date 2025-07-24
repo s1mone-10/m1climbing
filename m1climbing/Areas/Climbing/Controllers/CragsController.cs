@@ -13,6 +13,7 @@ using m1climbing.Constants;
 namespace m1climbing.Areas.Climbing.Controllers
 {
     [Area("Climbing")]
+    [Authorize(Policy = Policies.ManageClimbingData)]
     public class CragsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,6 +24,7 @@ namespace m1climbing.Areas.Climbing.Controllers
         }
 
         // GET: Climbing/Crags
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             // TODO Copilot suggestion: The use of `ToListAsync()` can lead to performance issues if the dataset is large. Consider using pagination or filtering to limit the number of records retrieved.
@@ -30,6 +32,7 @@ namespace m1climbing.Areas.Climbing.Controllers
         }
 
         // GET: Climbing/Crags/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,7 +52,6 @@ namespace m1climbing.Areas.Climbing.Controllers
         }
 
         // GET: Climbing/Crags/Create
-        [Authorize(Roles = Roles.Admin)]
         public IActionResult Create()
         {
             return View();

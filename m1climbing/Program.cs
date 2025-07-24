@@ -2,6 +2,7 @@ using m1climbing.Areas.Identity.Data;
 using m1climbing.Constants;
 using m1climbing.Data;
 using m1climbing.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,13 +25,17 @@ namespace m1climbing
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
-            //// Sets the fallback authorization policy.
-            //builder.Services.AddAuthorization(options =>
-            //{
-            //    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-            //        .RequireAuthenticatedUser()
-            //        .Build();
-            //});
+            
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Policies.ManageClimbingData, policy =>
+                    policy.RequireRole(Roles.Admin));
+
+                // Sets the fallback authorization policy.
+                options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+            });
 
             var app = builder.Build();
 
