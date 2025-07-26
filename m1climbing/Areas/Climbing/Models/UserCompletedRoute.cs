@@ -10,11 +10,11 @@ namespace m1climbing.Areas.Climbing.Models
 
         [Required]
         public string UserId { get; set; } = default!;
-        public ApplicationUser User { get; set; } = default!;
+        public ApplicationUser? User { get; set; } = default!;
 
         [Required]
         public int RouteId { get; set; }
-        public Route Route { get; set; } = default!;
+        public Route? Route { get; set; } = default!;
 
         [Required]
         public DateTime Date { get; set; }

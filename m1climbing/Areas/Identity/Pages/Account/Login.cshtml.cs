@@ -106,7 +106,7 @@ namespace m1climbing.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             // Redirect to My Completed Routes if no returnUrl is provided
-            returnUrl ??= Url.Action("Index", "User", new { area = "Climbing" });
+            returnUrl ??= Url.Action("Index", "Account", new { area = "Climbing" });
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 

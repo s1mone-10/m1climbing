@@ -5,7 +5,7 @@
 
 <h1>My Completed Routes</h1>
 <p>
-    <a asp-action="Create">Add Completed Route</a>
+    <a asp-controller="UserCompletedRoutes" asp-action="Create">Add Completed Route</a>
 </p>
 @if (!Model.Any())
 {
@@ -34,8 +34,8 @@ else
                 <td>@item.ProposedGrade</td>
                 <td>@item.PrivateNote</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-controller="UserCompletedRoutes" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-controller="UserCompletedRoutes" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }

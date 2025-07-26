@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using m1climbing.Areas.Climbing.Models;
+using m1climbing.Areas.Identity.Data;
+using m1climbing.Constants;
+using m1climbing.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using m1climbing.Areas.Climbing.Models;
-using m1climbing.Data;
-using Microsoft.AspNetCore.Authorization;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace m1climbing.Areas.Climbing.Controllers
 {
@@ -15,13 +18,16 @@ namespace m1climbing.Areas.Climbing.Controllers
     public class UserCompletedRoutesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserCompletedRoutesController(ApplicationDbContext context)
+        public UserCompletedRoutesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Climbing/UserCompletedRoutes
+        [Authorize(Policy = Policies.ManageClimbingData)]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.UserCompletedRoutes.Include(u => u.Route).Include(u => u.User);
@@ -49,10 +55,12 @@ namespace m1climbing.Areas.Climbing.Controllers
         }
 
         // GET: Climbing/UserCompletedRoutes/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["RouteId"] = new SelectList(_context.Route, "Id", "Grade");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            var user = await _userManager.GetUserAsync(User);
+            ViewData["UserId"] = user!.Id;
+            ViewData["CragId"] = new SelectList(_context.Crag, "Id", "Name");
+
             return View();
         }
 
@@ -67,10 +75,12 @@ namespace m1climbing.Areas.Climbing.Controllers
             {
                 _context.Add(userCompletedRoute);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Account");
             }
-            ViewData["RouteId"] = new SelectList(_context.Route, "Id", "Grade", userCompletedRoute.RouteId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", userCompletedRoute.UserId);
+
+            ViewData["UserId"] = userCompletedRoute.UserId;
+            ViewData["CragId"] = new SelectList(_context.Crag, "Id", "Name");
+            ViewData["RouteId"] = new SelectList(_context.Route, "Id", "Name", userCompletedRoute.RouteId);
             return View(userCompletedRoute);
         }
 
@@ -82,13 +92,23 @@ namespace m1climbing.Areas.Climbing.Controllers
                 return NotFound();
             }
 
-            var userCompletedRoute = await _context.UserCompletedRoutes.FindAsync(id);
+            var userCompletedRoute = await _context.UserCompletedRoutes.Include(u => u.Route).FirstOrDefaultAsync(u => u.Id == id);
             if (userCompletedRoute == null)
             {
                 return NotFound();
             }
-            ViewData["RouteId"] = new SelectList(_context.Route, "Id", "Grade", userCompletedRoute.RouteId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", userCompletedRoute.UserId);
+            
+            var user = await _userManager.GetUserAsync(User);
+            
+            if (userCompletedRoute.UserId != user!.Id && !User.IsInRole(Roles.Admin))
+            {
+                return Forbid(); // Ensures user can edit only their own records
+            }
+
+            ViewData["UserId"] = user!.Id;
+            var cragId = userCompletedRoute.Route?.CragId;
+            ViewData["CragId"] = new SelectList(_context.Crag, "Id", "Name", cragId);
+            ViewData["RouteId"] = new SelectList(_context.Route.Where(r => r.CragId == cragId), "Id", "Name", userCompletedRoute.RouteId);
             return View(userCompletedRoute);
         }
 
@@ -102,6 +122,12 @@ namespace m1climbing.Areas.Climbing.Controllers
             if (id != userCompletedRoute.Id)
             {
                 return NotFound();
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (userCompletedRoute.UserId != user!.Id && !User.IsInRole(Roles.Admin))
+            {
+                return Forbid(); // Ensures user can edit only their own records
             }
 
             if (ModelState.IsValid)
@@ -122,10 +148,11 @@ namespace m1climbing.Areas.Climbing.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Account");
             }
-            ViewData["RouteId"] = new SelectList(_context.Route, "Id", "Grade", userCompletedRoute.RouteId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", userCompletedRoute.UserId);
+            
+            ViewData["UserId"] = user!.Id;
+            ViewData["CragId"] = new SelectList(_context.Crag, "Id", "Name");
             return View(userCompletedRoute);
         }
 
@@ -146,6 +173,13 @@ namespace m1climbing.Areas.Climbing.Controllers
                 return NotFound();
             }
 
+            var user = await _userManager.GetUserAsync(User);
+            if (userCompletedRoute.UserId != user!.Id && !User.IsInRole(Roles.Admin))
+            {
+                return Forbid(); // Ensures user can edit only their own records
+            }
+
+
             return View(userCompletedRoute);
         }
 
@@ -155,13 +189,20 @@ namespace m1climbing.Areas.Climbing.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var userCompletedRoute = await _context.UserCompletedRoutes.FindAsync(id);
+
+            var user = await _userManager.GetUserAsync(User);
+            if (userCompletedRoute?.UserId != user!.Id && !User.IsInRole(Roles.Admin))
+            {
+                return Forbid(); // Ensures user can edit only their own records
+            }
+
             if (userCompletedRoute != null)
             {
                 _context.UserCompletedRoutes.Remove(userCompletedRoute);
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), "Account");
         }
 
         private bool UserCompletedRouteExists(int id)

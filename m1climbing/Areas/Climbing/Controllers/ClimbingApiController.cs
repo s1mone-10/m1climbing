@@ -113,6 +113,18 @@ namespace m1climbing.Areas.Climbing.Controllers
             return Ok(sectors);
         }
 
+        // GET: api/Climbing/Climbingapi/GetRoutes?cragId=5
+        [HttpGet("GetRoutes")]
+        public async Task<ActionResult<IEnumerable<object>>> GetRoutes(int cragId)
+        {
+            var sectors = await _context.Route
+                .Where(r => r.CragId == cragId)
+                .Select(r => new { value = r.Id, text = r.Name })
+                .ToListAsync();
+
+            return Ok(sectors);
+        }
+
 
         private bool CragExists(int id)
         {
