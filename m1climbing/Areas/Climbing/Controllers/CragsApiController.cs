@@ -7,30 +7,34 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using m1climbing.Areas.Climbing.Models;
 using m1climbing.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace m1climbing.Areas.Climbing.Controllers
 {
-    [Route("api/[area]/[controller]")]
+    [Route("api/[area]/crags")]
     [Area("Climbing")]
     [ApiController]
-    public class ClimbingApiController : ControllerBase
+    [Authorize(Policy = Constants.Policies.ManageClimbingData)]
+    public class CragsApiController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public ClimbingApiController(ApplicationDbContext context)
+        public CragsApiController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Climbing/Climbingapi
+        // GET: api/Climbing/crags
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Crag>>> GetCrag()
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<Crag>>> GetCrags()
         {
             return await _context.Crag.ToListAsync();
         }
 
-        // GET: api/Climbing/Climbingapi/5
+        // GET: api/Climbing/crags/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Crag>> GetCrag(int id)
         {
             var crag = await _context.Crag.FindAsync(id);
@@ -43,7 +47,7 @@ namespace m1climbing.Areas.Climbing.Controllers
             return crag;
         }
 
-        // PUT: api/Climbing/Climbingapi/5
+        // PUT: api/Climbing/crags/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCrag(int id, Crag crag)
@@ -74,7 +78,7 @@ namespace m1climbing.Areas.Climbing.Controllers
             return NoContent();
         }
 
-        // POST: api/Climbingapi/Climbing
+        // POST: api/Climbing/crags
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Crag>> PostCrag(Crag crag)
@@ -85,7 +89,6 @@ namespace m1climbing.Areas.Climbing.Controllers
             return CreatedAtAction("GetCrag", new { id = crag.Id }, crag);
         }
 
-        // DELETE: api/Climbing/Climbingapi/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCrag(int id)
         {
@@ -101,8 +104,9 @@ namespace m1climbing.Areas.Climbing.Controllers
             return NoContent();
         }
 
-        // GET: api/Climbing/Climbingapi/GetSectors?cragId=5
-        [HttpGet("GetSectors")]
+        // GET: api/Climbing/crags/1/sectors
+        [HttpGet("{cragId}/sectors")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<object>>> GetSectors(int cragId)
         {
             var sectors = await _context.Sector
@@ -113,8 +117,9 @@ namespace m1climbing.Areas.Climbing.Controllers
             return Ok(sectors);
         }
 
-        // GET: api/Climbing/Climbingapi/GetRoutes?cragId=5
-        [HttpGet("GetRoutes")]
+        // GET: api/Climbing/crags/1/routes
+        [HttpGet("{cragId}/routes")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<object>>> GetRoutes(int cragId)
         {
             var sectors = await _context.Route

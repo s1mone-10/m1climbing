@@ -5,7 +5,7 @@
         routeSelect.disabled = true;
 
         if (cragId) {
-            fetch('/api/Climbing/ClimbingApi/GetRoutes?cragId=' + cragId)
+            fetch('/api/Climbing/crags/' + cragId + '/routes')
                 .then(response => response.json())
                 .then(data => {
                     routeSelect.innerHTML = '';

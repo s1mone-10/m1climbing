@@ -5,7 +5,7 @@
         sectorSelect.disabled = true;
 
         if (cragId) {
-            fetch('/api/Climbing/ClimbingApi/GetSectors?cragId=' + cragId)
+            fetch('/api/Climbing/crags/' + cragId + '/sectors')
                 .then(response => response.json())
                 .then(data => {
                     sectorSelect.innerHTML = '';
