@@ -56,7 +56,6 @@ namespace m1climbing.Areas.Climbing.Controllers
         public IActionResult Create()
         {
             ViewData["CragId"] = new SelectList(_context.Crag, "Id", "Name");
-            //ViewData["SectorId"] = new SelectList(_context.Sector, "Id", "Name");
             return View();
         }
 
@@ -91,7 +90,8 @@ namespace m1climbing.Areas.Climbing.Controllers
             {
                 return NotFound();
             }
-            ViewData["CragId"] = new SelectList(_context.Crag, "Id", "Name", route.SectorId);
+            ViewData["CragId"] = new SelectList(_context.Crag, "Id", "Name", route.CragId);
+            ViewData["SectorId"] = new SelectList(_context.Sector.Where(s => s.CragId == route.CragId), "Id", "Name", route.SectorId);
             return View(route);
         }
 
