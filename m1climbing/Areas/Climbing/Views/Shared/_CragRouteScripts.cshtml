@@ -1,0 +1,48 @@
+﻿<script>
+    function loadRoutes(cragId, selectedRouteId) {
+        var routeSelect = document.getElementById('RouteId');
+        routeSelect.innerHTML = '<option value="">Loading...</option>';
+        routeSelect.disabled = true;
+
+        if (cragId) {
+            fetch('/api/Climbing/crags/' + cragId + '/routes')
+                .then(response => response.json())
+                .then(data => {
+                    routeSelect.innerHTML = '';
+                    if (data.length > 0) {
+                        data.forEach(function (route) {
+                            var option = document.createElement('option');
+                            option.value = route.value;
+                            option.text = route.text;
+                            if (selectedRouteId && route.value == selectedRouteId) {
+                                option.selected = true;
+                            }
+                            routeSelect.appendChild(option);
+                        });
+                        routeSelect.disabled = false;
+                    } else {
+                        routeSelect.innerHTML = '<option value="">No routes available</option>';
+                        routeSelect.disabled = true;
+                    }
+                });
+        } else {
+            routeSelect.innerHTML = '<option value="">Select a crag first</option>';
+            routeSelect.disabled = true;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var cragSelect = document.getElementById('CragId');
+        var routeSelect = document.getElementById('RouteId');
+        if (cragSelect) {
+            cragSelect.addEventListener('change', function () {
+                loadRoutes(this.value, null);
+            });
+            var selectedCragId = cragSelect.value;
+            var selectedRouteId = routeSelect ? routeSelect.value : null;
+            if (selectedCragId) {
+                loadRoutes(selectedCragId, selectedRouteId);
+            }
+        }
+    });
+</script>

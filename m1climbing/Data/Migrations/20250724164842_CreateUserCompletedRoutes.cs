@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace m1climbing.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddUserCompletedRoute : Migration
+    public partial class CreateUserCompletedRoutes : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,8 +19,10 @@ namespace m1climbing.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     RouteId = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    ProposedGrade = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true)
+                    ProposedGrade = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    PrivateNote = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
                 },
                 constraints: table =>
                 {
